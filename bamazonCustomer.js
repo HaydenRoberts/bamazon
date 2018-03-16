@@ -51,6 +51,7 @@ function startPurchase() {
             connection.query(query, { item_id: productChosen }, function (err, res) {
                 var amountInStock = res[0].stock_quantity;
                 var productName = res[0].product_name;
+                var totalCost = (res[0].price * amountPurchased);
 
                 if (amountPurchased > amountInStock) {
                     console.log("\nInsufficient quantity! Only " + amountInStock + " left in stock.\n")
@@ -68,7 +69,8 @@ function startPurchase() {
                         function (err) {
                             if (err) throw err;
                         })
-                    console.log("\nYou purchased " + amountPurchased + " " + productName + "(s).\n");
+                    console.log("\nYou purchased " + amountPurchased + " " + productName + "(s).");
+                    console.log("Your total: $" + totalCost + "\n");
                 }
                 purchaseAgain();
             })
